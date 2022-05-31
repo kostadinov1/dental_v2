@@ -12,7 +12,7 @@ from web.accounts.forms import UserRegistrationForm
 class UserRegistrationView(CreateView):
     form_class = UserRegistrationForm
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('show index')
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         result = super().form_valid(form)
@@ -30,7 +30,7 @@ class UserLoginView(LoginView):
 
 
 @login_required
-def build_logout(request):
+def logout_view(request):
     logout(request)
     return redirect('home')
 
