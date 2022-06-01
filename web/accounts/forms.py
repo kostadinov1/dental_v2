@@ -20,6 +20,7 @@ class CreateProfileForm(forms.ModelForm, BootstrapFormMixin):
         fields = '__all__'
 
 
+
 class EditProfileForm(forms.ModelForm, BootstrapFormMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

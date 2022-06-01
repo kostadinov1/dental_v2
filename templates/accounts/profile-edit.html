@@ -1,5 +1,24 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block main-content %}
+<div class="row" style="margin: 150px">
+    <div class="col-lg-4 col-md-4" ></div>
+    <div class="col-lg-4 col-md-4" >
+        <form class="appoinment-form" method="post" action="{% url 'profile edit' request.user.id %}" enctype="multipart/form-data">
+            <h1>Edit Profile</h1>
+            <div class="form-container">
+            <hr/>
+            <div class="flex-column">
+                {% csrf_token %}
+                {{ form }}
+            </div>
+		   <div class="col-lg-12 d-flex justify-content-end send-btn">
+		    <button class="primary-btn primary mt-20 text-uppercase ">Edit</button>
+		   </div>
+         </div>
+        </form>
 
+    <div class="col-lg-4 col-md-4" ></div>
+    </div>
+</div>
 {% endblock %}

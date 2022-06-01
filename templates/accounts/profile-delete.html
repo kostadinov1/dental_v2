@@ -2,27 +2,26 @@
 {% load static %}
 {% block main-content %}
 
-                  <link rel="stylesheet" href="{% static "css/login.css" %}">
 
-<div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-4" ></div>
-    <div class="col-lg-4 col-md-4 col-sm-4" >
-        <form method="post" action="{% url 'profile delete' request.user.id %}">
+<div class="row" style="margin: 150px">
+    <div class="col-lg-4 col-md-4" ></div>
+    <div class="col-lg-4 col-md-4" >
+        <form class="appoinment-form" method="post" action="{% url 'profile delete' request.user.id%}">
             <h1>Delete Profile</h1>
             <div class="form-container">
             <hr/>
-            <div class="container">
+            <div class="flex-column">
                 {% csrf_token %}
                 {{ form }}
-                </div>
-            <button type="submit">Delete</button>
-
+            </div>
+		   <div class="col-lg-12 d-flex justify-content-end send-btn">
+		    <button class="primary-btn primary mt-20 text-uppercase ">Delete</button>
+		   </div>
+         </div>
         </form>
+
+    <div class="col-lg-4 col-md-4" ></div>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4" ></div>
 </div>
-    <br><br><br>
-
-
 
 {% endblock %}

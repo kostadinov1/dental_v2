@@ -60,17 +60,20 @@ class CreateUserProfileView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        self.request.user.has_profile = True
-        return super().form_valid(form)
+        form.instance.user.has_profile = True
+        form.instance.user.save()  # USER MUST BE SAVED
+        result = super().form_valid(form)
+        return result
 
 
 class EditProfileView(UpdateView, LoginRequiredMixin):
     model = Profile
     template_name = 'accounts/profile-edit.html'
     form_class = EditProfileForm
+    context_object_name = 'profile'
 
     def get_success_url(self):
-        return reverse_lazy('show profile view', kwargs={'pk': self.object.user.id})
+        return reverse_lazy('profile', kwargs={'pk': self.object.user.id})
 
 
 class DeleteProfileView(DeleteView, LoginRequiredMixin):
@@ -78,3 +81,5 @@ class DeleteProfileView(DeleteView, LoginRequiredMixin):
     template_name = 'accounts/profile-delete.html'
     success_url = reverse_lazy('home')
     form_class = DeleteProfileForm
+    context_object_name = 'profile'
+

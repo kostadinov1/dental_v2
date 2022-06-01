@@ -1,32 +1,80 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block main-content %}
-			<!-- Start team Area -->
-		    <section class="team-area section-gap" id="team">
-		        <div class="container">
-		            <div class="row d-flex justify-content-center">
-		                <div class="menu-content pb-70 col-lg-8">
-		                    <div class="title text-center">
-		                        <h1 class="mb-10">Your Profile</h1>
-		                        <p>You can manage Your Profile from here.</p>
-		                    </div>
-		                </div>
-		            </div>
 
-		            <div class="row justify-content-center d-flex align-items-center">
-		                <div class="col-lg-3 col-md-6 single-team">
-		                    <div class="thumb">
-		                        <img class="img-fluid" src="img/t1.jpg" alt="">
-		                        <div class="align-items-end justify-content-center d-flex">
-		                            <p>
-		                            	inappropriate behavior
-		                            </p>
-		                            <h4>Andy Florence</h4>
-		                        </div>
-		                    </div>
-		                </div>
+<section>
+    <div  style="margin: 150px">
+    <div class="row">
+        <div class="col-md-8">
+<article class="my-3" id="card">
+      <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+        <h3>Your Profile</h3>
+      </div>
+      <div>
+        <div class="bd-example">
+        <div class="row  row-cols-1 row-cols-md-2 g-4">
+          <div class="col-lg-10">
+            <div class="card">
+                {% if profile.image %}
+                <img src="{{ profile.image.url }}" alt="No Image Added Yet"/>
+                    {% else %}
+                    <div >
+            <img src="{% static 'images/blank-profile-image.png' %}"
+                 alt="Profile Image" >
+        </div>
+                {% endif %}
+              <div class="card-body">
+                <h5 class="card-title">Profile Info</h5>
+                <p>{{ profile }}</p>
+                <p>{{ user.email }}</p>
+                <p>{{ profile.dob }}</p>
+                <a href="{% url 'profile edit' request.user.id %}" class="btn btn-success">Edit</a>
+                <a href="{% url 'profile delete' request.user.id %}" class="btn btn-success">Delete</a>
+{#                <a href="{% url 'show change password' %}" class="btn btn-success">Change Password</a>#}
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </article>
+        <br>
+            <div class="col-lg-10">
+            <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+        <h3>Your Reviews</h3>
+                        <br>
+</div>
+            {% for review in reviews %}
+                <h3>{{ review.title }}</h3>
+                <p>{{ review.body }}</p>
+                <a href="#" class="btn btn-success">Edit</a>
+                <a href="#" class="btn btn-success">Delete</a>
+            {% endfor %}
+        </div>
 
-		            </div>
-		        </div>
-		    </section>
-		    <!-- End team Area -->
+        </div>
+        <div class="col-md-4">
+                <br>
+            <div class="col-lg-10">
+                <br>
+                <div style="text-align: center">
+                <a href="#" class="btn btn-success ">Book Your Next Appointment Now</a>
+                </div>
+                <br><br>
+        <h3 class="align-self-center">Your Appointments</h3>
+                        <br>
+
+            </div>
+            {% for appo in appointments %}
+                <h4>Where: {{ appo.venue }}</h4>
+                <p>Treatment: {{ appo.service }}</p>
+                <p>Date: {{ appo.date }}</p>
+                <p>Time: {{ appo.time }}</p>
+                <a href="{% url 'show appointment details' appo.pk %}" class="btn btn-success">Show Details</a>
+            {% endfor %}
+
+        </div>
+    </div>
+    </div>
+</section>
 {% endblock %}
